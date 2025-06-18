@@ -2,21 +2,23 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class RolesAndPermissionsSeeder extends Seeder
+class RolesAndUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+       app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Optional: define permissions
+        // Define permissions
         $permissions = [
             'manage applications',
             'admit students',
@@ -30,9 +32,10 @@ class RolesAndPermissionsSeeder extends Seeder
             Permission::firstOrCreate(['name' => $perm]);
         }
 
+        // Define roles and assign permissions
         $roles = [
-            'superadmin' => Permission::all(),
-            'admin' => Permission::all(),
+            'superadmin' => $permissions,
+            'admin' => $permissions,
             'admissions officer' => ['manage applications', 'admit students'],
             'exam officer' => ['process results'],
             'hod' => ['manage students', 'process results'],
@@ -44,9 +47,21 @@ class RolesAndPermissionsSeeder extends Seeder
             'student' => [],
         ];
 
-        foreach ($roles as $role => $perms) {
-            $r = Role::firstOrCreate(['name' => $role]);
-            $r->syncPermissions($perms);
+        foreach ($roles as $roleName => $perms) {
+            $role = Role::firstOrCreate(['name' => $roleName]);
+            $role->syncPermissions($perms);
+
+            // Create user for each role
+            $email = str_replace(' ', '_', $roleName) . '@demo.com';
+            $user = User::firstOrCreate([
+                'email' => $email
+            ], [
+                'name' => ucwords(str_replace('_', ' ', $roleName)),
+                'password' => Hash::make('password'),
+                'type' => in_array($roleName, ['student']) ? 'student' : 'staff'
+            ]);
+
+            $user->assignRole($roleName);
         }
     }
 }

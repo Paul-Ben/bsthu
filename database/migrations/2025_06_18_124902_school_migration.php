@@ -39,24 +39,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // STUDENTS
-        Schema::create('students', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('application_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->string('reg_no')->unique();
-            $table->string('gender');
-            $table->date('dob');
-            $table->text('address');
-            $table->string('country');
-            $table->string('state');
-            $table->string('lga');
-            $table->foreignId('department_id')->constrained();
-            $table->year('entry_year');
-            $table->integer('current_level');
-            $table->enum('status', ['active', 'suspended', 'graduated'])->default('active');
-            $table->timestamps();
-        });
+       
 
         // COLLEGES
         Schema::create('colleges', function (Blueprint $table) {
@@ -90,6 +73,25 @@ return new class extends Migration
             $table->integer('level');
             $table->enum('semester', ['first', 'second',]);
             $table->foreignId('department_id')->constrained();
+            $table->timestamps();
+        });
+
+         // STUDENTS
+        Schema::create('students', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('application_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->string('reg_no')->unique();
+            $table->string('gender');
+            $table->date('dob');
+            $table->text('address');
+            $table->string('country');
+            $table->string('state');
+            $table->string('lga');
+            $table->foreignId('department_id')->constrained();
+            $table->year('entry_year');
+            $table->integer('current_level');
+            $table->enum('status', ['active', 'suspended', 'graduated'])->default('active');
             $table->timestamps();
         });
 
