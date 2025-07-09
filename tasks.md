@@ -16,9 +16,9 @@
 |                         | CI/CD pipeline setup                     | DevOps           | 2 days        | Repo setup                 |                   |
 | **Student Application** |                                           |                  |               |                            |                   |
 |                         | Design application form UI               | UI               | 3 days        | Base templates ready       |                   |
-|                         | Implement form validation                | Backend          | 2 days        | DB setup complete          |                   |
-|                         | Create document upload functionality     | Full-stack       | 3 days        | None                       |                   |
-|                         | Build admin dashboard for applications   | Frontend         | 4 days        | Base dashboard done        |                   |
+|                         | Implement form validation                | Backend          | 2 days        | DB setup complete          |         `✔`          |
+|                         | Create document upload functionality     | Full-stack       | 3 days        | None                       |       `✔`            |
+|                         | Build admin dashboard for applications   | Frontend         | 4 days        | Base dashboard done        |        `✔`           |
 | **Admission Module**    |                                           |                  |               |                            |                   |
 |                         | Develop applicant filtering system       | Backend          | 3 days        | Student apps complete      |                   |
 |                         | Create admission offer generator         | Full-stack       | 2 days        | None                       |                   |

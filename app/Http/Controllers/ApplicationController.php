@@ -48,8 +48,14 @@ class ApplicationController extends Controller
 
         $application = Application::create($validated);
 
-        return redirect()->route('applications.show', $application)
+        return redirect()->route('applications.confirmation', $application)
             ->with('success', 'Application submitted successfully!');
+    }
+
+    public function confirmation(Request $request, Application $application)
+    {
+
+        return view('applications.confirmation', compact('application'));
     }
 
     public function show(Application $application)
